@@ -1,0 +1,69 @@
+body {
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+.sidebar {
+    width: 200px;
+    height: 100vh;
+    background-color: #f2f2f2;
+    overflow: hidden;
+    transition: width 0.3s;
+    right: auto;
+}
+
+#content {
+    flex: 1;
+    padding: 20px;
+}
+
+#bodyContainer {
+    width: 750px;
+    border: 1px solid red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    
+}
+.img {
+    width: 750px;
+  pointer-events: none;
+  user-select: none;
+}
+
+.inner-content img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+  .draggable {
+      width: 100px;
+      height: 100px;
+      background-color: red;
+      position: absolute;
+      top: 50px;
+      left: 50px;
+      cursor: move;
+  }
+
+#canvas {
+    position: relative;
+    user-select: none;
+
+}
+
+.preTextBox {
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    cursor: move;
+    border: 1px solid red;
+    
+}
+
+.resizable {
+    resize: both;
+    overflow: auto;
+}

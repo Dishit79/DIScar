@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Draggable and Resizable Box</title>
+    <style>
+        #container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+        }
+
+        .box {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            background-color: #f1f1f1;
+            border: 1px solid #ccc;
+            cursor: move;
+        }
+
+        .resizable {
+            resize: both;
+            overflow: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <button onclick="createBox()">Generate Box</button>
+    </div>
+
+    <script>
+        let isResizable = false;
+
+        function createBox() {
+            const container = document.getElementById('container');
+
+            const box = document.createElement('div');
+            box.className = 'box';
+            box.style.top = (container.clientHeight / 2 - 75) + 'px';
+            box.style.left = (container.clientWidth / 2 - 75) + 'px';
+
+            box.addEventListener('mousedown', dragStart);
+            box.addEventListener('dblclick', toggleResize);
+            container.addEventListener('mousemove', drag);
+            container.addEventListener('mouseup', dragEnd);
+
+            container.appendChild(box);
+        }
+
+        let currentBox = null;
+        let initialX, initialY, offsetX, offsetY;
+
+        function dragStart(e) {
+            if (!isResizable) {
+                currentBox = e.target;
+                initialX = e.clientX;
+                initialY = e.clientY;
+                offsetX = parseFloat(currentBox.style.left) || 0;
+                offsetY = parseFloat(currentBox.style.top) || 0;
+
+                currentBox.style.cursor = 'grabbing';
+            }
+        }
+
+        function drag(e) {
+            if (!currentBox) return;
+
+            const newX = offsetX + e.clientX - initialX;
+            const newY = offsetY + e.clientY - initialY;
+
+            currentBox.style.left = newX + 'px';
+            currentBox.style.top = newY + 'px';
+        }
+
+        function dragEnd() {
+            if (!currentBox) return;
+
+            currentBox.style.cursor = 'move';
+            currentBox = null;
+        }
+
+        function toggleResize(e) {
+            const box = e.target;
+            isResizable = !isResizable;
+
+            if (isResizable) {
+                box.classList.add('resizable');
+                box.style.resize = 'both';
+                box.style.overflow = 'auto';
+            } else {
+                box.classList.remove('resizable');
+                box.style.resize = 'none';
+                box.style.overflow = 'visible';
+            }
+        }
+    </script>
+</body>
+
+</html>
