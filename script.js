@@ -30,6 +30,43 @@ function createBox() {
     boxData = {
         id: id,
         typeof: 'text',
+        checked: false,
+        enableEdit: false,
+        text: '',
+        oscarVar: '',
+    }
+
+    boxes.push(boxData);
+}
+
+function createCheckbox() {
+    const container = document.getElementById('canvas');
+
+    // generate a random number id
+    let id = Math.floor(Math.random() * 1000000);
+
+    const box = document.createElement('div');
+    box.className = 'preTextBox';
+    box.id = id;
+    box.style.top = (container.clientHeight / 2 - 75) + 'px';
+    box.style.left = (container.clientWidth / 2 - 75) + 'px';
+    box.style.width = `10px`
+    box.style.height = `10px` 
+    box.style.postion = 'absolute';
+    box.dataset.isResizable = false;
+
+
+    box.addEventListener('mousedown', dragStart);
+    box.addEventListener('click', openFunction);
+    container.addEventListener('mousemove', drag);
+    container.addEventListener('mouseup', dragEnd);
+
+    container.appendChild(box);
+
+    boxData = {
+        id: id,
+        typeof: 'checkbox',
+        checked: false,
         enableEdit: false,
         text: '',
         oscarVar: '',
